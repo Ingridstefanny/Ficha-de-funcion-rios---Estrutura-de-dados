@@ -51,10 +51,20 @@ void adicionaFuncionario(Funcionario tabela[], int indice, char matricula_new[],
 void removerFuncionario(Funcionario tabela[], char matriculabusca[])
 {
     int k = buscaFuncionario(tabela, matriculabusca);
-    strcpy(tabela[k].Matricula, "");
-    strcpy(tabela[k].Nome, "");
-    tabela[k].idade = 0;
-    tabela[k].salario = 0.0;
+
+    if (k == -1)
+    {
+        printf("Funcionario nao encontrado.\n");
+    }
+    else
+    {
+        strcpy(tabela[k].Nome, "");
+        strcpy(tabela[k].Matricula, "");
+        tabela[k].salario = 0.0;
+        tabela[k].idade = 0;
+
+        printf("Funcionario removido.\n");
+    }
 }
 
 void imprimeFuncionario(Funcionario tabela[], char matriculabusca[])
