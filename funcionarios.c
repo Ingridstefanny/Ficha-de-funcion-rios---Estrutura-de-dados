@@ -136,7 +136,7 @@ int main()
                 printf("Informe o salario:\n");
                 scanf("%f",&salario);
 
-                adicionaFuncionario(empresa, indice, Matricula,nome, idade, salario);
+                adicionaFuncionario(empresa, Matricula,nome, idade, salario);
 
                 break;
 
