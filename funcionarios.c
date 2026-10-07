@@ -4,7 +4,7 @@ const int Max= 15;
 const int tam= 50;
 const int limite= 6;
 
-
+//Estrutura para funcionario
 typedef struct {
     
     char Matricula[6];
@@ -14,6 +14,7 @@ typedef struct {
 
 } Funcionario;
 
+//Zera todas as informações das variaveis.
 void zeraFuncionario(Funcionario tabela[])
 {
     int i;
@@ -39,15 +40,26 @@ int buscaFuncionario(Funcionario tabela[], char matriculabusca[])
     return -1;
 }
 
-//
-void adicionaFuncionario(Funcionario tabela[], int indice, char matricula_new[], char nome_new[], int idade_new, float salario_new)
+//Função para adicionar um funcionario
+void adicionaFuncionario(Funcionario tabela[], char matricula_new[], char nome_new[], int idade_new, float salario_new)
 {
-    strcpy(tabela[indice].Matricula, matricula_new);
-    strcpy(tabela[indice].Nome, nome_new);
-    tabela[indice].idade = idade_new;
-    tabela[indice].salario = salario_new;
+    int indice = buscaFuncionario(tabela, "");
+
+    if (indice == -1)
+    {
+        printf("Nao eh possivel adicionar um funcionario");
+    }
+
+    else
+    {
+        strcpy(tabela[indice].Matricula, matricula_new);
+        strcpy(tabela[indice].Nome, nome_new);
+        tabela[indice].idade = idade_new;
+        tabela[indice].salario = salario_new;
+    }
 }
 
+//Removendo um funcionario
 void removerFuncionario(Funcionario tabela[], char matriculabusca[])
 {
     int k = buscaFuncionario(tabela, matriculabusca);
@@ -67,6 +79,7 @@ void removerFuncionario(Funcionario tabela[], char matriculabusca[])
     }
 }
 
+//Função para imprimir funcionários
 void imprimeFuncionario(Funcionario tabela[], char matriculabusca[])
 {
     int i = buscaFuncionario(tabela, matriculabusca);
@@ -94,7 +107,6 @@ int main()
     Funcionario empresa[Max];
     zeraFuncionario(empresa);
     int opcao = 0;
-    int indice;
     int i;
 
     while (opcao != 5) {
@@ -124,7 +136,6 @@ int main()
                 printf("Informe o salario:\n");
                 scanf("%f",&salario);
 
-                indice= buscaFuncionario(empresa, "");
                 adicionaFuncionario(empresa, indice, Matricula,nome, idade, salario);
 
                 break;
