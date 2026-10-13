@@ -43,7 +43,9 @@ int buscaFuncionario(Funcionario tabela[], char matriculabusca[])
 //Função para adicionar um funcionario
 void adicionaFuncionario(Funcionario tabela[], char matricula_new[], char nome_new[], int idade_new, float salario_new)
 {
-     int existe = buscaFuncionario(tabela, matricula_new);
+    int existe = buscaFuncionario(tabela, matricula_new);
+    int posicao = 0;
+    int i;
 
     if (existe != -1)
     {
@@ -51,21 +53,42 @@ void adicionaFuncionario(Funcionario tabela[], char matricula_new[], char nome_n
         return;
     }
 
-    int indice = buscaFuncionario(tabela, "");
+    int indiceVazio = buscaFuncionario(tabela, "");
 
-    if (indice == -1)
+    if (indiceVazio == -1)
     {
         printf("Nao eh possivel adicionar um funcionario: tabela cheia.\n");
     }
+    
     else
     {
-        strcpy(tabela[indice].Matricula, matricula_new);
-        strcpy(tabela[indice].Nome, nome_new);
-        tabela[indice].idade = idade_new;
-        tabela[indice].salario = salario_new;
+        strcpy(tabela[indiceVazio].Matricula, matricula_new);
+        strcpy(tabela[indiceVazio].Nome, nome_new);
+        tabela[indiceVazio].idade = idade_new;
+        tabela[indiceVazio].salario = salario_new;
 
         printf("Funcionario cadastrado com sucesso.\n");
     }
+
+    for(posicao; posicao < indiceVazio; posicao++)
+    {
+        //Comparar os nomes por ordem alfabética
+       if(strcmp( nome_new, tabela[posicao].Nome) < 0 )
+       {
+            break;
+       }
+    }
+    //Da direita para a esquerda atribui-se o valor no qual estava o antigo para copiar ele novamente
+    for(i = indiceVazio; i > posicao; i--){
+
+        tabela[i] = tabela[i-1];
+        
+    }
+    //Para assim ser substituído pelos valores que foram adicionados pelo usuário.
+    strcpy(tabela[posicao].Matricula, matricula_new);
+    strcpy(tabela[posicao].Nome, nome_new);
+    tabela[posicao].idade = idade_new;
+    tabela[posicao].salario = salario_new;
 }
 
 //Removendo um funcionario
@@ -199,7 +222,7 @@ int main()
                 break;
             
             case 5:
-
+                
                 break;
 
             default: 
