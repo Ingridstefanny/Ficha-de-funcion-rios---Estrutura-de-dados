@@ -150,6 +150,37 @@ void imprimeFuncionarios(Funcionario tabela[])
     }
 
 }
+//Função para o CSV:
+void salvarCSV(Funcionario tabela[])
+{
+    int i;
+    FILE *arquivo;
+
+    arquivo = fopen("funcionarios.csv", "w");
+
+    if(arquivo == NULL)
+    {
+        printf("Erro ao abrir o arquivo\n");
+        return;
+    }
+    //Salvando apenas os dados dos funcionários que foram preenchidos, caso não, a repetição não guarda os valores vazios.
+    for(i = 0; i < Max; i++)
+    {
+        if(strcmp(tabela[i].Matricula, "") != 0){
+            fprintf(arquivo, "%s;%s;%d;%.2f\n",
+            tabela[i].Matricula,
+            tabela[i].Nome,
+            tabela[i].idade,
+            tabela[i].salario
+            );
+        }
+        else{
+            break;
+        }    
+    }
+    
+    fclose(arquivo);
+}
 
 int main()
 {
