@@ -58,19 +58,10 @@ void adicionaFuncionario(Funcionario tabela[], char matricula_new[], char nome_n
     if (indiceVazio == -1)
     {
         printf("Nao eh possivel adicionar um funcionario: tabela cheia.\n");
-    }
-    
-    else
-    {
-        strcpy(tabela[indiceVazio].Matricula, matricula_new);
-        strcpy(tabela[indiceVazio].Nome, nome_new);
-        tabela[indiceVazio].idade = idade_new;
-        tabela[indiceVazio].salario = salario_new;
-
-        printf("Funcionario cadastrado com sucesso.\n");
+        return;
     }
 
-    for(posicao; posicao < indiceVazio; posicao++)
+    for(posicao = 0; posicao < indiceVazio; posicao++)
     {
         //Comparar os nomes por ordem alfabética
        if(strcmp( nome_new, tabela[posicao].Nome) < 0 )
@@ -89,16 +80,20 @@ void adicionaFuncionario(Funcionario tabela[], char matricula_new[], char nome_n
     strcpy(tabela[posicao].Nome, nome_new);
     tabela[posicao].idade = idade_new;
     tabela[posicao].salario = salario_new;
+
+    printf("Funcionario cadastrado com sucesso\n");
 }
 
 //Removendo um funcionario
 void removerFuncionario(Funcionario tabela[], char matriculabusca[])
 {
     int k = buscaFuncionario(tabela, matriculabusca);
+    int i;
 
     if (k == -1)
     {
         printf("Funcionario nao encontrado.\n");
+        return;
     }
     else
     {
@@ -109,6 +104,15 @@ void removerFuncionario(Funcionario tabela[], char matriculabusca[])
 
         printf("Funcionario removido.\n");
     }
+
+    for(i = k; i < Max - 1; i++){
+        tabela[i]= tabela[i+1];
+    }
+
+    strcpy(tabela[Max - 1].Matricula, "");
+    strcpy(tabela[Max - 1].Nome, "");
+    tabela[Max - 1].idade = 0;
+    tabela[Max - 1].salario = 0.0;
 }
 
 //Função para imprimir funcionários
