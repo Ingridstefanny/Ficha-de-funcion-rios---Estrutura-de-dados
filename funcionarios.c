@@ -49,7 +49,7 @@ void adicionaFuncionario(Funcionario tabela[], char matricula_new[], char nome_n
 
     if (existe != -1)
     {
-        printf("Erro: matricula ja cadastrada.\n");
+        printf("\nErro: matricula ja cadastrada!\n");
         return;
     }
 
@@ -57,7 +57,7 @@ void adicionaFuncionario(Funcionario tabela[], char matricula_new[], char nome_n
 
     if (indiceVazio == -1)
     {
-        printf("Nao eh possivel adicionar um funcionario: tabela cheia.\n");
+        printf("\nNao eh possivel adicionar um funcionario: tabela cheia.\n");
         return;
     }
 
@@ -81,7 +81,7 @@ void adicionaFuncionario(Funcionario tabela[], char matricula_new[], char nome_n
     tabela[posicao].idade = idade_new;
     tabela[posicao].salario = salario_new;
 
-    printf("Funcionario cadastrado com sucesso\n");
+    printf("\nFuncionario cadastrado com sucesso!\n");
 }
 
 //Removendo um funcionario
@@ -92,7 +92,7 @@ void removerFuncionario(Funcionario tabela[], char matriculabusca[])
 
     if (k == -1)
     {
-        printf("Funcionario nao encontrado.\n");
+        printf("\nFuncionario nao encontrado.\n");
         return;
     }
     else
@@ -102,7 +102,7 @@ void removerFuncionario(Funcionario tabela[], char matriculabusca[])
         tabela[k].salario = 0.0;
         tabela[k].idade = 0;
 
-        printf("Funcionario removido.\n");
+        printf("\nFuncionario removido com sucesso!\n");
     }
 
     for(i = k; i < Max - 1; i++){
@@ -122,18 +122,17 @@ void imprimeFuncionario(Funcionario tabela[], char matriculabusca[])
 
     if (i == -1)
     { 
-        printf("Funcionario nao encontrado\n"); 
+        printf("\nFuncionario nao encontrado!\n"); 
     }
     else
     {
-        printf("Matricula: %s\nNome: %s\nIdade: %d\nSalario: %.2f\n",
-               tabela[i].Matricula,
-               tabela[i].Nome,
-               tabela[i].idade,
-               tabela[i].salario);
+       printf("\n----------------------------------------\n");
+        printf("Matricula : %s\n", tabela[i].Matricula);
+        printf("Nome      : %s\n", tabela[i].Nome);
+        printf("Idade     : %d anos\n", tabela[i].idade);
+        printf("Salario   : R$ %.2f\n", tabela[i].salario);
+        printf("----------------------------------------\n");
     }
-
-    printf("\n");
 }
 
 //Função para imprimir vários funcionarios
@@ -160,7 +159,7 @@ void salvarCSV(Funcionario tabela[])
 
     if(arquivo == NULL)
     {
-        printf("Erro ao abrir o arquivo\n");
+        printf("\nErro ao abrir o arquivo!\n");
         return;
     }
 
@@ -220,18 +219,22 @@ int main()
 
     while (opcao != 5) {
 
-        printf("\nQue acao deseja realizar?\n\n"
-       "1- Adicionar funcionario\n"
-       "2- Remover funcionario\n"
-       "3- Imprimir funcionario\n"
-       "4- Imprimir todos os funcionarios\n"
-       "5- Sair\n--------------------------------------------------------------\n");
+        printf("\n========================================\n");
+        printf("       SISTEMA DE FUNCIONARIOS\n");
+        printf("========================================\n");
+        printf("1 - Adicionar funcionario\n");
+        printf("2 - Remover funcionario\n");
+        printf("3 - Consultar funcionario\n");
+        printf("4 - Consultar todos os funcionarios\n");
+        printf("5 - Sair\n");
+        printf("----------------------------------------\n");
+        printf("Escolha uma opcao: ");
     
         scanf("%d", &opcao);
             
         switch(opcao) {
             case 1: 
-
+                printf("\n---------- NOVO FUNCIONARIO ----------\n");
                 //Caso o usuario digitar a quantidade dos numeros de matricula errado.
                 do
                 {
@@ -240,7 +243,7 @@ int main()
                     
                     if (strlen(entrada) != 5)
                     {
-                        printf("Erro: a matricula deve possuir exatamente 5 digitos.\n");
+                        printf("\nErro: a matricula deve possuir exatamente 5 digitos!\n");
                     }
 
                 }
@@ -264,7 +267,7 @@ int main()
                 break;
 
             case 2: 
-
+                printf("\n---------- REMOVER FUNCIONARIO ----------\n");
                 printf("\nQual a matricula do funcionario que deseja remover?\n");
                 scanf("%5s", Matricula);
                 removerFuncionario(empresa, Matricula);
@@ -273,7 +276,7 @@ int main()
                 break;
 
             case 3: 
-            
+                printf("\n---------- CONSULTAR FUNCIONARIO ----------\n");
                 printf("\nInforme a matricula de um funcionario:\n");
                 scanf("%5s", Matricula);
                 printf("\n");
@@ -281,6 +284,7 @@ int main()
                 break;
 
             case 4: 
+                printf("\n========== FUNCIONARIOS CADASTRADOS ==========\n");
                 imprimeFuncionarios(empresa);
                 break;
             
