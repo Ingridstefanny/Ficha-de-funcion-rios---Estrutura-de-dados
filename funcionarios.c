@@ -163,6 +163,7 @@ void salvarCSV(Funcionario tabela[])
         printf("Erro ao abrir o arquivo\n");
         return;
     }
+
     //Salvando apenas os dados dos funcionários que foram preenchidos, caso não, a repetição não guarda os valores vazios.
     for(i = 0; i < Max; i++)
     {
@@ -171,14 +172,36 @@ void salvarCSV(Funcionario tabela[])
             tabela[i].Matricula,
             tabela[i].Nome,
             tabela[i].idade,
-            tabela[i].salario
-            );
+            tabela[i].salario);
         }
         else{
             break;
         }    
     }
     
+    fclose(arquivo);
+}
+
+void carregarCSV(Funcionario tabela[])
+{
+    int i = 0;
+    FILE *arquivo;
+
+    arquivo = fopen("funcionarios.csv", "r");
+
+    if (arquivo == NULL)
+    {
+        return;
+    }
+    while(i < Max &&  fscanf(arquivo, " %5[^;];%49[^;];%d;%f",
+           tabela[i].Matricula,
+           tabela[i].Nome,
+           &tabela[i].idade,
+           &tabela[i].salario) == 4){
+       
+        i++;
+    }
+
     fclose(arquivo);
 }
 
@@ -192,6 +215,7 @@ int main()
 
     Funcionario empresa[Max];
     zeraFuncionario(empresa);
+    carregarCSV(empresa);
     int opcao = 0;
 
     while (opcao != 5) {
@@ -235,6 +259,8 @@ int main()
 
                 adicionaFuncionario(empresa, Matricula,nome, idade, salario);
 
+                salvarCSV(empresa);
+
                 break;
 
             case 2: 
@@ -242,6 +268,8 @@ int main()
                 printf("\nQual a matricula do funcionario que deseja remover?\n");
                 scanf("%5s", Matricula);
                 removerFuncionario(empresa, Matricula);
+
+                salvarCSV(empresa);
                 break;
 
             case 3: 
