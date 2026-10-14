@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#define Max 15
+#define Max 6
 #define tam 50
 #define limite 6
 
@@ -234,6 +234,12 @@ int main()
             
         switch(opcao) {
             case 1: 
+                if (buscaFuncionario(empresa, "") == -1)
+                {
+                    printf("\nNao ha espaco para cadastrar novos funcionarios!\n");
+                    break;
+                }
+                
                 printf("\n---------- NOVO FUNCIONARIO ----------\n");
                 //Caso o usuario digitar a quantidade dos numeros de matricula errado.
                 do
@@ -293,7 +299,7 @@ int main()
                 break;
 
             default: 
-                printf("\nOpcao invalida\n");
+                printf("\nOpcao invalida!\n");
                 break;
         }
     }
